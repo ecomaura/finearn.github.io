@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trading Hero Section</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f0f0f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 32px 16px;
+    }
+
+    /* ── Keyframes ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(50px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes barSlide {
+      from { opacity: 0; transform: translateY(-100%); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(232,68,90,0.4); }
+      50%       { transform: scale(1.4); opacity: 0.7; box-shadow: 0 0 0 5px rgba(232,68,90,0); }
+    }
+    @keyframes floatCard {
+      0%, 100% { transform: translateY(0px) rotate(0.3deg); }
+      50%       { transform: translateY(-8px) rotate(-0.3deg); }
+    }
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.88); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes countUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes shimmer {
+      0%   { background-position: -600px 0; }
+      100% { background-position: 600px 0; }
+    }
+    @keyframes drawLine {
+      to { width: 100%; }
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+    @keyframes photoReveal {
+      from { opacity: 0; clip-path: inset(100% 0 0 0); }
+      to   { opacity: 1; clip-path: inset(0% 0 0 0); }
+    }
+    @keyframes pillBounce {
+      0%   { opacity: 0; transform: translateY(12px) scale(0.9); }
+      70%  { transform: translateY(-3px) scale(1.04); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes statBarGrow {
+      from { transform: scaleX(0); }
+      to   { transform: scaleX(1); }
+    }
+    @keyframes glowPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(59,79,212,0.3); }
+      50%       { box-shadow: 0 0 0 8px rgba(59,79,212,0); }
+    }
+    @keyframes bgShift {
+      0%, 100% { background-position: 0% 50%; }
+      50%       { background-position: 100% 50%; }
+    }
+    @keyframes tagRotate {
+      0%   { transform: rotate(-2deg) scale(1); }
+      50%  { transform: rotate(2deg) scale(1.04); }
+      100% { transform: rotate(-2deg) scale(1); }
+    }
+
+    /* ── Wrapper ── */
+    .hero-wrap {
+      width: 100%;
+      max-width: 1100px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid #e0e0ee;
+      box-shadow: 0 8px 50px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06);
+      background: #fff;
+      opacity: 0;
+      animation: scaleIn 0.55s cubic-bezier(0.22,1,0.36,1) 0.1s forwards;
+    }
+
+    /* ── Top bar ── */
+    .hero-top-bar {
+      background: linear-gradient(90deg, #E8445A, #d63652, #E8445A);
+      background-size: 200% 100%;
+      color: #fff;
+      text-align: center;
+      padding: 11px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      animation: barSlide 0.5s ease 0.3s forwards, bgShift 4s ease 0.8s infinite;
+    }
+    .hero-top-bar i { font-size: 15px; }
+    .hero-top-bar::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+      background-size: 600px 100%;
+      animation: shimmer 2.4s linear 0.8s 2;
+      pointer-events: none;
+    }
+    .bar-chip {
+      background: rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 2px 10px;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Main grid ── */
+    .hero-main {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      min-height: 380px;
+    }
+
+    /* ── Left content ── */
+    .hero-content {
+      padding: 52px 48px 44px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #E8445A;
+      background: rgba(232,68,90,0.07);
+      border: 1px solid rgba(232,68,90,0.18);
+      border-radius: 20px;
+      padding: 5px 12px 5px 8px;
+      width: fit-content;
+      opacity: 0;
+      animation: fadeUp 0.5s ease 0.55s forwards;
+    }
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #E8445A;
+      flex-shrink: 0;
+      animation: pulseDot 2s ease-in-out 1.3s infinite;
+    }
+
+    /* ── TYPING HEADING ── */
+    .hero-heading {
+      font-size: 40px;
+      font-weight: 800;
+      color: #1a1a2e;
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+      opacity: 0;
+      animation: fadeUp 0.55s ease 0.72s forwards;
+      min-height: 2.5em; /* reserve space while typing */
+    }
+    .hero-heading .line1 {
+      display: block;
+    }
+    .hero-heading .line2-wrap {
+      display: block;
+      min-height: 1.18em;
+    }
+    .hero-heading em {
+      font-style: normal;
+      color: #3B4FD4;
+      position: relative;
+      display: inline-block;
+    }
+    .hero-heading em::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #3B4FD4, #6b7ff0);
+      border-radius: 2px;
+      animation: drawLine 0.5s ease 2.8s forwards;
+    }
+
+    /* Typing cursor */
+    .typing-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 1em;
+      background: #3B4FD4;
+      border-radius: 2px;
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 0.75s step-end infinite;
+    }
+    .typing-cursor.done {
+      animation: blink 0.75s step-end infinite;
+      opacity: 0;
+      transition: opacity 0.4s ease 0.6s;
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: #6b6b85;
+      line-height: 1.68;
+      max-width: 390px;
+      opacity: 0;
+      animation: fadeUp 0.55s ease 0.88s forwards;
+    }
+
+    /* Feature pills */
+    .hero-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeUp 0.5s ease 0.96s forwards;
+    }
+    .feature-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #5566c8;
+      background: #f0f2ff;
+      border: 1px solid #dde0f9;
+      border-radius: 20px;
+      padding: 5px 11px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .feature-pill:hover { background: #e4e8ff; transform: translateY(-1px); }
+    .feature-pill i { font-size: 13px; }
+
+    .hero-cta {
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.55s ease 1.06s forwards;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #3B4FD4, #5264e8);
+      color: #fff;
+text-decoration: none;
+      border: none;
+      border-radius: 10px;
+      padding: 13px 26px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: transform 0.15s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+      animation: glowPulse 3s ease-in-out 2.5s infinite;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.4s ease;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(59,79,212,0.38); }
+    .btn-primary:hover::before { transform: translateX(100%); }
+    .btn-primary:active { transform: scale(0.97) translateY(0); box-shadow: none; }
+
+    .btn-secondary {
+      background: transparent;
+      color: #5c5c7a;
+      border: 1.5px solid #d4d4e2;
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: background 0.18s, border-color 0.18s, transform 0.12s;
+    }
+    .btn-secondary:hover { background: #f4f4f8; border-color: #b0b0c8; transform: translateY(-2px); }
+    .btn-secondary:active { transform: scale(0.97); }
+
+    .hero-trust {
+      font-size: 12px;
+      color: #a8a8c0;
+      margin-top: 0;
+      opacity: 0;
+      animation: fadeUp 0.5s ease 1.2s forwards;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .trust-sep { color: #d4d4e0; }
+
+    /* ── Right educator ── */
+    .hero-educator {
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      background: linear-gradient(155deg, #edf0ff 0%, #f2eeff 55%, #ffe8f0 100%);
+      overflow: hidden;
+      opacity: 0;
+      animation: slideInRight 0.65s cubic-bezier(0.22,1,0.36,1) 0.45s forwards;
+      padding: 0;
+      min-height: 360px;
+    }
+
+    /* Educators row container */
+    .educators-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      gap: 0;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+    }
+
+    /* Side educator cards (smaller) */
+    .edu-side {
+      flex: 0 0 110px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      position: relative;
+      opacity: 0;
+      /* Reserve space so info card doesn't overlap photo */
+      padding-top: 90px;
+    }
+    .edu-side:nth-child(1) { animation: fadeUp 0.6s ease 0.9s forwards; }
+    .edu-side:nth-child(3) { animation: fadeUp 0.6s ease 1.05s forwards; }
+
+    .edu-side-photo {
+      width: 90px;
+      aspect-ratio: 1 / 1.4;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 12px 12px 0 0;
+      display: block;
+      filter: brightness(0.88) saturate(0.85);
+      transition: filter 0.3s, transform 0.3s;
+      flex-shrink: 0;
+    }
+    .edu-side:hover .edu-side-photo {
+      filter: brightness(1) saturate(1);
+      transform: translateY(-4px);
+    }
+
+    .edu-side-info {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.8);
+      border-radius: 10px;
+      padding: 6px 8px;
+      width: 96px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.09);
+      text-align: center;
+      white-space: normal;
+      word-break: break-word;
+      z-index: 5;
+    }
+    .edu-side-name {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #1a1a2e;
+    }
+    .edu-side-role {
+      font-size: 9.5px;
+      color: #9090b0;
+      margin: 1px 0 4px;
+    }
+    .edu-side-rating {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #c97d08;
+    }
+    .edu-side-rating span {
+      font-weight: 400;
+      color: #a8a8c0;
+      font-size: 9.5px;
+    }
+
+    /* Animated background orbs */
+    .educator-orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .educator-orb-1 {
+      width: 280px;
+      height: 280px;
+      bottom: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(ellipse, rgba(59,79,212,0.14) 0%, transparent 70%);
+    }
+    .educator-orb-2 {
+      width: 160px;
+      height: 160px;
+      top: -30px;
+      right: -40px;
+      background: radial-gradient(ellipse, rgba(232,68,90,0.10) 0%, transparent 70%);
+    }
+
+    /* Educator photo (main center) */
+    .educator-photo-wrap {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 0 0 220px;
+      /* Top padding reserves space for the floating info card */
+      padding-top: 110px;
+    }
+
+    .educator-photo {
+      width: 100%;
+      max-width: 220px;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      border-radius: 16px 16px 0 0;
+      opacity: 0;
+      animation: photoReveal 0.7s cubic-bezier(0.22,1,0.36,1) 0.8s forwards;
+      transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+      margin: 0 auto;
+    }
+    .hero-educator:hover .educator-photo { transform: scale(1.035) translateY(-5px); }
+
+    /* Floating info card (main educator) */
+    .educator-card {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.8);
+      border-radius: 14px;
+      padding: 11px 14px;
+      width: 160px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
+      opacity: 0;
+      white-space: normal;
+      word-break: break-word;
+      animation: scaleIn 0.5s cubic-bezier(0.22,1,0.36,1) 1.0s forwards,
+                 floatCard 4.5s ease-in-out 2s infinite;
+    }
+    .educator-card-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1a1a2e;
+    }
+    .educator-card-role {
+      font-size: 11px;
+      color: #9090b0;
+      margin: 2px 0 8px;
+    }
+    .educator-rating {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #c97d08;
+    }
+    .educator-rating span {
+      font-weight: 400;
+      color: #a8a8c0;
+    }
+    .educator-students {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: #9090b0;
+      margin-top: 5px;
+    }
+
+    /* Verified badge + tag-pill bottom row */
+    .educator-bottom-row {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      opacity: 0;
+      animation: pillBounce 0.6s cubic-bezier(0.34,1.56,0.64,1) 1.3s forwards;
+    }
+
+    /* Verified badge */
+    .educator-verified {
+      position: relative;
+      bottom: auto;
+      left: auto;
+      transform: none;
+      z-index: 4;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.8);
+      border-radius: 10px;
+      padding: 6px 11px;
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #3B4FD4;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      opacity: 1;
+      animation: none;
+    }
+
+    /* Tag pill */
+    .tag-pill {
+      position: relative;
+      bottom: auto;
+      left: auto;
+      transform: none;
+      z-index: 4;
+      background: linear-gradient(135deg, #E8445A, #ff6080);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 22px;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(232,68,90,0.35);
+      animation: tagRotate 5s ease-in-out 2.5s infinite;
+    }
+
+    /* ── Stats bar ── */
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid #ebebf5;
+      background: #fafafa;
+    }
+    .stat-item {
+      padding: 22px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      border-right: 1px solid #ebebf5;
+      opacity: 0;
+      transition: background 0.2s, transform 0.2s;
+      cursor: default;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-item:nth-child(1) { animation: countUp 0.5s ease 1.3s forwards; }
+    .stat-item:nth-child(2) { animation: countUp 0.5s ease 1.45s forwards; }
+    .stat-item:nth-child(3) { animation: countUp 0.5s ease 1.6s forwards; }
+    .stat-item:hover { background: #f2f2fb; }
+
+    .stat-num {
+      font-size: 24px;
+      font-weight: 800;
+      color: #1a1a2e;
+      letter-spacing: -0.02em;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: #9090b0;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .stat-label i { font-size: 14px; color: #b0b0cc; }
+
+    /* Stat progress bar */
+    .stat-bar {
+      height: 3px;
+      background: #eaeaf5;
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 2px;
+    }
+    .stat-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #3B4FD4, #6b7ff0);
+      border-radius: 2px;
+      transform: scaleX(0);
+      transform-origin: left;
+    }
+    .stat-item:nth-child(1) .stat-bar-fill { animation: statBarGrow 0.8s cubic-bezier(0.22,1,0.36,1) 1.8s forwards; width: 70%; }
+    .stat-item:nth-child(2) .stat-bar-fill { animation: statBarGrow 0.8s cubic-bezier(0.22,1,0.36,1) 1.95s forwards; width: 90%; }
+    .stat-item:nth-child(3) .stat-bar-fill { animation: statBarGrow 0.8s cubic-bezier(0.22,1,0.36,1) 2.1s forwards; width: 96%; }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .hero-main {
+        grid-template-columns: 1fr 340px;
+      }
+      .edu-side { flex: 0 0 80px; padding-top: 80px; }
+      .edu-side-photo { width: 72px; }
+      .educator-photo-wrap { flex: 0 0 150px; padding-top: 100px; }
+      .educator-photo { max-width: 150px; }
+    }
+
+    @media (max-width: 780px) {
+      .hero-main {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+      }
+      .hero-educator {
+        order: -1;
+        min-height: 260px;
+        padding: 0;
+        background: linear-gradient(180deg, #edf0ff 0%, #f2eeff 60%, #ffe8f0 100%);
+        border-radius: 0;
+      }
+      .educators-row {
+        gap: 4px;
+        position: relative;
+        align-items: flex-end;
+      }
+      .educator-photo-wrap {
+        flex: 0 0 160px;
+        padding-top: 0;
+        justify-content: flex-end;
+      }
+      .educator-photo {
+        max-width: 160px;
+      }
+      /* On mobile, side info cards go above photos (normal flow) */
+      .edu-side {
+        flex: 0 0 90px;
+        padding-top: 0;
+        justify-content: flex-end;
+      }
+      .edu-side-photo { width: 82px; }
+      .edu-side-info {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: 86px;
+        margin: 0 auto 4px;
+      }
+      /* Main center: card above photo */
+      .educator-card {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin: 0 auto 6px;
+        min-width: 130px;
+        padding: 9px 12px;
+      }
+      .educator-card-name { font-size: 12px; }
+      .educator-card-role { font-size: 10px; }
+      .educator-rating { font-size: 11px; }
+      .educator-students { font-size: 10px; }
+      .educator-bottom-row {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        transform: none;
+        justify-content: center;
+        margin: 4px auto 6px;
+        flex-wrap: wrap;
+      }
+      .tag-pill { font-size: 9.5px; padding: 4px 10px; }
+      .educator-verified { font-size: 10px; padding: 5px 9px; }
+      .hero-content {
+        padding: 32px 24px 36px;
+      }
+      .hero-heading { font-size: 30px; min-height: 3em; }
+      .hero-stats { grid-template-columns: repeat(3,1fr); }
+    }
+
+    @media (max-width: 520px) {
+      body { padding: 16px 10px; }
+      .hero-wrap { border-radius: 14px; }
+      .hero-content { padding: 28px 20px 30px; gap: 14px; }
+      .hero-heading { font-size: 26px; }
+      .hero-sub { font-size: 14px; }
+      .hero-educator { min-height: 220px; }
+      .educator-photo-wrap { flex: 0 0 130px; padding-top: 0; }
+      .educator-photo { max-width: 130px; }
+      .edu-side { flex: 0 0 72px; padding-top: 0; }
+      .edu-side-photo { width: 66px; }
+      .edu-side-info { min-width: 74px; width: 74px; padding: 5px 7px; max-width: 74px; }
+      .edu-side-name { font-size: 9.5px; }
+      .edu-side-role { font-size: 8.5px; }
+      .btn-primary, .btn-secondary { padding: 12px 18px; font-size: 13.5px; }
+      .hero-stats { grid-template-columns: 1fr 1fr; }
+      .stat-item:nth-child(3) {
+        grid-column: span 2;
+        border-right: none;
+        border-top: 1px solid #ebebf5;
+      }
+      .stat-item { padding: 16px 20px; }
+      .stat-num { font-size: 20px; }
+    }
+
+    @media (max-width: 360px) {
+      .hero-heading { font-size: 23px; }
+      .hero-cta { gap: 8px; }
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; opacity: 1 !important; }
+      .typing-cursor { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero-wrap">
+
+  
+  <!-- Main two-column section -->
+  <div class="hero-main">
+
+    <!-- Left: copy -->
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Trusted by 10,000+ traders &amp; investors
+      </div>
+
+      <h1 class="hero-heading">
+        <span class="line1">Learn to trade</span>
+        <span class="line2-wrap"><em id="typing-target"></em><span class="typing-cursor" id="cursor"></span></span>
+      </h1>
+
+      <p class="hero-sub">
+        India's top market educators teach you practical strategies — from intraday setups to long-term portfolio building.
+      </p>
+
+      <div class="hero-features">
+        <span class="feature-pill"><i class="ti ti-chart-candle"></i> Technical Analysis</span>
+        <span class="feature-pill"><i class="ti ti-trending-up"></i> Options Trading</span>
+        <span class="feature-pill"><i class="ti ti-building-bank"></i> Fundamental Research</span>
+      </div>
+
+      <div class="hero-cta">
+        <a href="https://www.finearn.in/s/pages/course-list-new" class="btn-primary" target="_blank" rel="noopener">
+  <i class="ti ti-compass"></i> Explore Courses
+</a>>
+              </div>
+
+      <p class="hero-trust">
+        <i class="ti ti-file-certificate" style="font-size:14px;color:#b0b0cc"></i>
+        100+ courses
+        <span class="trust-sep">·</span>
+        4.8 / 5 avg rating
+        <span class="trust-sep">·</span>
+        Certificate included
+      </p>
+    </div>
+
+    <!-- Right: educator spotlight -->
+    <div class="hero-educator">
+      <div class="educator-orb educator-orb-1"></div>
+      <div class="educator-orb educator-orb-2"></div>
+
+      <div class="educators-row">
+
+        <!-- Side Educator 1: Left -->
+        <div class="edu-side">
+          <div class="edu-side-info">
+            <p class="edu-side-name">Nitesh Dhane  (Founder-  Finearn)</p>
+            <p class="edu-side-role">Technical Analysis Expert | Trading Mentor| Market Educator</p>
+            <div class="edu-side-rating">
+              <i class="ti ti-star-filled" style="font-size:10px"></i> 4.8
+              <span>(1.4k)</span>
+            </div>
+          </div>
+          <img
+            class="edu-side-photo"
+            src="https://raw.githubusercontent.com/ecomaura/finearnmedia/refs/heads/main/Screenshot%202026-06-18%20145159.png"
+            alt="Priya Sharma — educator"
+          />
+        </div>
+
+        <!-- Main Center Educator -->
+        <div class="educator-photo-wrap">
+          <!-- Floating educator card -->
+          <div class="educator-card">
+            <p class="educator-card-name">Sarang Yadav</p>
+            <p class="educator-card-role">Founder, Boss of Stock Market | India's Most Followed Female Trader | Stock Market Expert | Trader | Mentor | Financial Influencer</p>
+            <div class="educator-rating">
+              <i class="ti ti-star-filled" style="font-size:12px"></i> 4.9
+              <span>(2.1k reviews)</span>
+            </div>
+            <div class="educator-students">
+              <i class="ti ti-users" style="font-size:12px"></i>
+              48,000 students
+            </div>
+          </div>
+
+          <!-- Bottom row: Verified + Top Educator pill -->
+          <div class="educator-bottom-row">
+            <div class="educator-verified">
+              <i class="ti ti-rosette-discount-check" style="font-size:13px"></i>
+              Verified Expert
+            </div>
+            <div class="tag-pill">⭐ Top Educator 2024</div>
+          </div>
+
+          <img
+            class="educator-photo"
+            src="https://raw.githubusercontent.com/ecomaura/finearnmedia/refs/heads/main/DSC09450(2).jpg"
+            alt="Arjun Mehta — educator"
+          />
+        </div>
+
+        <!-- Side Educator 2: Right -->
+        <div class="edu-side">
+          <div class="edu-side-info">
+            <p class="edu-side-name">Awani Kulkarni</p>
+            <p class="edu-side-role">Member, Finearn | Fundamental Analysis & Market Research Expert</p>
+            <div class="edu-side-rating">
+              <i class="ti ti-star-filled" style="font-size:10px"></i> 4.7
+              <span>(980)</span>
+            </div>
+          </div>
+          <img
+            class="edu-side-photo"
+            src="https://raw.githubusercontent.com/ecomaura/finearnmedia/refs/heads/main/Screenshot%202026-06-18%20144324.png"
+            alt="Rohan Desai — educator"
+          />
+        </div>
+
+      </div><!-- /educators-row -->
+    </div>
+
+  </div>
+
+  <!-- Stats bar -->
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-num">100+</span>
+      <span class="stat-label"><i class="ti ti-device-laptop"></i> Online courses</span>
+      <div class="stat-bar"><div class="stat-bar-fill"></div></div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">100K+</span>
+      <span class="stat-label"><i class="ti ti-clock"></i> Hours of content</span>
+      <div class="stat-bar"><div class="stat-bar-fill"></div></div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">4.9 / 5</span>
+      <span class="stat-label"><i class="ti ti-star"></i> Average rating</span>
+      <div class="stat-bar"><div class="stat-bar-fill"></div></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ── Typing animation ──
+  (function() {
+    var phrases = ["Invest Tomorrow", "Trade with Confidence", "Invest like a Pro"];
+    var target  = document.getElementById("typing-target");
+    var cursor  = document.getElementById("cursor");
+    if (!target || !cursor) return;
+
+    var phraseIdx = 0;
+    var charIdx   = 0;
+    var deleting  = false;
+    var started   = false;
+
+    function type() {
+      var current = phrases[phraseIdx];
+      if (!deleting) {
+        target.textContent = current.slice(0, ++charIdx);
+        if (charIdx === current.length) {
+          if (phraseIdx === 0 && !started) {
+            started = true;
+            setTimeout(function() {
+              cursor.classList.add("done");
+              setTimeout(startCycle, 600);
+            }, 2200);
+            return;
+          }
+          deleting = true;
+          setTimeout(type, 1800);
+          return;
+        }
+      } else {
+        target.textContent = current.slice(0, --charIdx);
+        if (charIdx === 0) {
+          deleting  = false;
+          phraseIdx = (phraseIdx + 1) % phrases.length;
+          setTimeout(type, 350);
+          return;
+        }
+      }
+      setTimeout(type, deleting ? 55 : 72);
+    }
+
+    function startCycle() {
+      cursor.classList.remove("done");
+      cursor.style.opacity = "1";
+      cursor.style.animation = "blink 0.75s step-end infinite";
+      deleting = true;
+      type();
+    }
+
+    setTimeout(type, 1050);
+  })();
+
+  // ── Send height to parent (ONE TIME ONLY) ──
+  var heightSent = false;
+
+  function sendHeight() {
+    if (heightSent) return;
+    var h = Math.max(
+      document.body.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.scrollHeight,
+      document.documentElement.offsetHeight
+    );
+    if (h > 200) {
+      window.parent.postMessage({ type: 'heroHeight', height: h }, '*');
+      heightSent = true;
+    }
+  }
+
+  window.addEventListener('load', function() {
+    setTimeout(sendHeight, 500);
+    setTimeout(sendHeight, 1500);
+    setTimeout(sendHeight, 3000);
+  });
+
+  window.addEventListener('resize', function() {
+    // Allow re-send only on actual window resize
+    heightSent = false;
+    setTimeout(sendHeight, 300);
+  });
+</script>
+
+</body>
+</html>
