@@ -709,7 +709,7 @@ text-decoration: none;
     left: auto;
     transform: none;
     margin: 0 auto 6px;
-    width: 110px;
+    width: 150px;
     min-width: unset;
     padding: 5px 7px;
     border-radius: 10px;
@@ -790,11 +790,15 @@ text-decoration: none;
 
   /* ── Main educator ── */
   .educator-photo-wrap { flex: 0 0 140px; padding-top: 0; }
-  .educator-photo { max-width: 140px; }
+  .educator-photo { 
+  max-width: 160px; 
+  aspect-ratio: 3 / 4.5;    /* taller — was 3/4 */
+}
+      .hero-educator { min-height: 340px; }
 
   /* ── Side educators ── */
   .edu-side { flex: 0 0 80px; padding-top: 0; flex-shrink: 1; }
-  .edu-side-photo { width: 76px; }
+  .edu-side-photo { width: 76px; aspect-ratio: 1 / 1.8; }
   .edu-side-info { width: 76px; min-width: unset; max-width: 76px; padding: 4px 5px; }
   .edu-side-name { font-size: 7.5px; }
   .edu-side-role { font-size: 6.5px; }
